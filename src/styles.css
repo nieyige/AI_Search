@@ -1,0 +1,248 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+  --canvas: #f7f8fa;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--canvas);
+  color: #171a1f;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "PingFang SC", "Segoe UI", "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: rgb(47 111 235 / 0.16);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #d6dbe4 transparent;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  border: 3px solid transparent;
+  border-radius: 9999px;
+  background-clip: content-box;
+  background-color: #d6dbe4;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #c3cad6;
+}
+
+/* ---------------------------------------------------------------- shimmer */
+
+.shimmer-text {
+  background: linear-gradient(
+    90deg,
+    #64748b 0%,
+    #94a3b8 32%,
+    #2f6feb 50%,
+    #94a3b8 68%,
+    #64748b 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer-text 2.4s linear infinite;
+}
+
+@keyframes shimmer-text {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* --------------------------------------------------------------- markdown */
+
+.markdown {
+  @apply break-words text-[13.5px] leading-[1.75] text-ink;
+}
+
+.markdown > :first-child {
+  margin-top: 0 !important;
+}
+
+.markdown > :last-child {
+  margin-bottom: 0 !important;
+}
+
+.markdown h1,
+.markdown h2,
+.markdown h3,
+.markdown h4 {
+  @apply font-semibold tracking-tight text-ink;
+  margin: 1.35em 0 0.55em;
+}
+
+.markdown h1 {
+  @apply text-[22px];
+}
+
+.markdown h2 {
+  @apply border-b border-line/70 pb-1.5 text-[18px];
+}
+
+.markdown h3 {
+  @apply text-[15.5px];
+}
+
+.markdown h4 {
+  @apply text-[14px];
+}
+
+.markdown p {
+  @apply my-2.5;
+}
+
+.markdown ul {
+  @apply my-2.5 list-disc pl-5;
+}
+
+.markdown ol {
+  @apply my-2.5 list-decimal pl-5;
+}
+
+.markdown li {
+  @apply my-1 pl-0.5;
+}
+
+.markdown li > ul,
+.markdown li > ol {
+  @apply my-1;
+}
+
+.markdown blockquote {
+  @apply my-3 rounded-r-lg border-l-[3px] border-brand/30 bg-brand-soft/40 py-1.5 pl-3.5 pr-2 text-muted;
+}
+
+.markdown blockquote p {
+  @apply my-1;
+}
+
+.markdown hr {
+  @apply my-5 border-line;
+}
+
+.markdown strong {
+  @apply font-semibold text-ink;
+}
+
+.markdown img {
+  @apply my-3 max-h-[420px] rounded-lg border border-line object-contain;
+}
+
+.markdown table {
+  @apply w-full border-collapse text-[12.5px];
+}
+
+.markdown th {
+  @apply bg-slate-50 px-3 py-2 text-left font-semibold text-ink;
+}
+
+.markdown td {
+  @apply border-t border-line px-3 py-2 align-top;
+}
+
+.markdown tr:nth-child(even) td {
+  @apply bg-slate-50/40;
+}
+
+.markdown input[type="checkbox"] {
+  @apply mr-1.5 accent-brand;
+}
+
+.markdown a {
+  word-break: break-word;
+}
+
+.markdown pre {
+  background: transparent;
+}
+
+/* A blinking caret at the end of the last streamed block. */
+.markdown-streaming > :last-child::after {
+  content: "▍";
+  margin-left: 1px;
+  color: #2f6feb;
+  animation: caret-blink 1s steps(2, start) infinite;
+}
+
+@keyframes caret-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* ------------------------------------------------------- radix accordion */
+
+@keyframes accordion-down {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+  }
+}
+
+@keyframes accordion-up {
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+  to {
+    height: 0;
+  }
+}
+
+/* ------------------------------------------------------------ focus ring */
+
+:focus-visible {
+  outline: 2px solid rgb(47 111 235 / 0.45);
+  outline-offset: 2px;
+}
+
+/* --------------------------------------------------------- reduced motion */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .shimmer-text {
+    animation: none;
+    background: none;
+    color: #64748b;
+    -webkit-text-fill-color: currentColor;
+  }
+
+  .markdown-streaming > :last-child::after {
+    animation: none;
+  }
+}

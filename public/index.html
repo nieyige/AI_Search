@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI 搜索</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="layout">
+    <main class="main">
+      <h1>AI 搜索</h1>
+      <form id="form" class="searchbar">
+        <input id="q" type="text" maxlength="500" placeholder="输入想搜索的内容" autocomplete="off" autofocus>
+        <button id="go" type="submit">搜索</button>
+      </form>
+      <div id="error" class="error" hidden></div>
+      <div id="placeholder" class="hint">报告会在搜索完成后显示在这里,右侧可以实时查看每一步。</div>
+      <article id="report" class="report" hidden></article>
+      <section id="sources" class="sources" hidden>
+        <h2>参考来源</h2>
+        <ol id="source-list"></ol>
+      </section>
+    </main>
+
+    <aside class="sidebar">
+      <h2>搜索过程</h2>
+      <div id="steps" class="steps"><div class="hint">暂无记录</div></div>
+    </aside>
+  </div>
+
+  <script src="/vendor/marked.js"></script>
+  <script src="/vendor/purify.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
